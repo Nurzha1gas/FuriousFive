@@ -1,0 +1,220 @@
+@keyframes animatedBackground {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .navbar {
+    position: fixed;
+    height: 100%;
+    width: 160px; /* Ширина навбара */
+    top: 0;
+    left: 0;
+    background-color: #333; /* Цвет фона */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around; /* Равномерное распределение кнопок */
+  }
+  
+  .navbar a {
+    padding: 40% 10px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
+    text-align: center;
+  }
+  
+  .navbar a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  body, html {
+    height: 100%;
+    margin: 0;
+  }
+  
+  body, html {
+    margin: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(-45deg, #230f42, #8b22d5, #5b25e4, #1017e4);
+    background-size: 400% 400%;
+    animation: animatedBackground 15s ease infinite;
+}
+  
+  /* ... other styles ... */
+
+.chat-section {
+    width: 350px;
+    height: 665px;
+    position: fixed; /* This fixes the chat section on the screen */
+    top: 36px;
+    right: 0; /* This ensures the chat section stays at the right edge of the screen */
+    background-color: transparent;
+    border-radius: 16px 0 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2); /* Adding shadow for better visibility */
+    z-index: 1000; /* Ensure the chat section is above other content */
+  }
+  
+  /* ... other styles ... */
+  
+  .chat-messages p {
+    background-color: #6A5ACD; /* Assuming a purple background for messages */
+    color: white;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    max-width: 80%;
+    max-height: 960px; /* Пример высоты, адаптируйте под свои нужды */
+    overflow-y: auto; /* Полоса прокрутки появляется, если содержимое превышает высоту */
+    margin: 3;
+    padding: 5;
+  }
+  
+  .emoji-bar {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: #E0E0E0; /* Light grey background for emoji bar */
+  }
+  
+  .emoji-bar span {
+    cursor: pointer;
+  }
+  
+  .chat-input {
+    display: flex;
+    border-top: 1px solid #E0E0E0;
+    padding: 10px;
+  }
+  
+  .chat-input input {
+    flex: 1;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #CCC;
+    border-radius: 10px;
+  }
+  
+  .send-button {
+    background-color: #6A5ACD; /* Matching the message background color */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  /* Adjusting the opacity property */
+  .chat-section:hover {
+    opacity: 1; /* Full visibility on hover */
+  }
+  
+  /* Additional styling for scrollable chat messages */
+  .chat-messages {
+    overflow-y: auto;
+    flex-grow: 1;
+  }
+  .container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .side-space {
+    background-color: #a14242; /* Just to visualize the space, can be removed */
+  }
+  
+  .left-space {
+    width: 160px; /* Fixed width for the left space */
+  }
+  
+  .photo-content {
+    flex-grow: 1; /* Photo content will take the remaining space */
+    display: flex;
+    flex-direction: column;
+    margin: 10px 10px; /* Adds spacing between the side spaces and photo content */
+    max-width: 1000px;
+    background-color: transparent;
+    margin: 10px 10px;
+    
+  }
+  .photo-boxes {
+    flex-grow: 1; /* Photo content will take the remaining space */
+    display: flex;
+    flex-direction: column;
+     /* Adds spacing between the side spaces and photo content */
+    max-width: 1000px;
+    max-height: 300px;
+    background-color: transparent;
+    
+    
+  }
+  
+  .photo-box {
+    height: 300px;
+    margin: 10px 10px;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3), 0px 6px 20px rgba(255, 255, 255, 0.1);
+  }
+  
+  
+  
+  .large {
+    flex: 50%; /* Takes 1/2 of the height */
+  }
+  
+  
+  
+  .small {
+    flex: 1; /* Splits the space evenly between the two photos */
+    
+  }
+  .videos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2em;
+}
+
+.video-player {
+    background-color: black;
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+}
+.media-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Adjust as needed */
+}
+
+.round-button {
+  background-color: #4CAF50; /* Green background */
+  border: none;
+  color: white;
+  padding: 15px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 6px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 50%; /* Rounded shape */
+  box-shadow: 0 5px #999; /* Shadow for a 'button press' effect */
+}
+
+.round-button:hover {background-color: #45a049;}
+
+.round-button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 3px #666;
+  transform: translateY(20px);
+}

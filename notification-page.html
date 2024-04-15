@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notification Page</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #520ACA; /* Purple background */
+    }
+    
+    .sidebar {
+        position: absolute;
+        top: 35px;
+        left: 23px;
+        width: 175px;
+        height: 1045px;
+        background-color: #520ACA; /* Purple background */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0;
+    }
+
+    .sidebar button {
+        width: 116px;
+        height: 114px;
+        background-color: #520ACA; /* Purple background */
+        border: 2px solid #fff; /* White border */
+        border-radius: 20px; /* Rounded corners */
+        color: #fff; /* White text */
+        cursor: pointer;
+    }
+
+    .notification-container {
+        position: absolute;
+        top: 35px;
+        left: 235px;
+        width: 1639px;
+        height: 1045px;
+        background-color: #520ACA; /* Purple background */
+    }
+
+    .notification-box {
+        position: absolute;
+        top: 110px;
+        left: 160px;
+        width: 1318px;
+        height: 157px; /* Increased height */
+        background-color: #fff; /* White background */
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    .profile-photo {
+        width: 137px;
+        height: 137px;
+        background-color: #ddd; /* Default photo background */
+        border-radius: 50%; /* Circular photo */
+        margin-right: 20px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .profile-photo img {
+        width: 100%;
+        height: auto;
+    }
+
+    .notification-text {
+        flex-grow: 1;
+        margin-right: 20px; /* Added space */
+    }
+
+    .name-surname, .message, .date {
+        margin: 0;
+        color: #520ACA; /* Purple text */
+    }
+
+    .date {
+        margin-left: auto; /* Push date to the right */
+        width: 140px;
+        text-align: right;
+    }
+    
+    .message {
+        font-size: 1rem; /* Increased font size */
+        max-width: 1000px; /* Increased max width */
+    }
+</style>
+</head>
+<body>
+    <div class="sidebar">
+        <!-- Replace these with actual navigation buttons or icons -->
+        <button>Home</button>
+        <button>Profile</button>
+        <button>Messages</button>
+        <button>Settings</button>
+    </div>
+
+    <div class="notification-container">
+        <div class="notification-box">
+            <div class="profile-photo">
+                <img src="path-to-profile-image.jpg" alt="Profile Image"> <!-- Path to the profile image -->
+            </div>
+            <div class="notification-text">
+                <h2 class="name-surname">Name Surname</h2>
+                <p class="message">This is a longer notification message to fit the increased space.</p>
+            </div>
+            <p class="date">14:40</p>
+        </div>
+    </div>
+</body>
+</html>
