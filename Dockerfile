@@ -47,5 +47,12 @@ RUN python manage.py migrate
 
 EXPOSE 8000
 
-# Run Django development server
-# CMD ["python", "manage.py", "runserver", "127.0.0.1:8000"]
+# This Dockerfile sets up a Python-based environment using poetry for dependency management.
+# Base Image: Uses python:3.9.5-slim. Configures environment variables for Python and poetry,
+# including disabling the pip cache and setting a default timeout for pip operations.
+# A 'wait' script is added and made executable to synchronize the container startup in docker-compose.
+
+# Builder Image: Extends the python-base. Installs necessary packages like curl and build-essential for building Python packages.
+# Sets up the working directory at PYSETUP_PATH and copies over the poetry configuration files.
+# Installs project dependencies via poetry without creating a virtual environment.
+# Copies the application code to /app, runs Django migrations, and exposes port 8000 for web access.

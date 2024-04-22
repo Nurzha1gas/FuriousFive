@@ -1,6 +1,12 @@
 import environ
 
 from .local import *
+"""
+Configures Django settings using environment variables. 
+
+- SECRET_KEY, DEBUG, DATABASES, and ALLOWED_HOSTS are set via environment variables.
+- CHANNEL_LAYERS configures Django Channels with Redis for real-time functionality.
+"""
 
 env = environ.Env(
     DEBUG=(bool, False),

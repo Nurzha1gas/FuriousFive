@@ -8,7 +8,7 @@ from django.views.decorators.http import require_GET, require_POST
 
 from .models import Conversation, User
 
-
+# Handles the creation of a new conversation by a logged-in user.
 @require_POST
 def create_conversation(request: HttpRequest) -> JsonResponse:
     session_username = request.session.get("username")
@@ -33,7 +33,7 @@ def create_conversation(request: HttpRequest) -> JsonResponse:
         status=201,
     )
 
-
+# Handles the joining of a conversation by a logged-in user, ensuring it's not full.
 @require_POST
 def join_conversation(request: HttpRequest) -> JsonResponse:
     session_username = request.session.get("username")
@@ -96,8 +96,8 @@ def join_conversation(request: HttpRequest) -> JsonResponse:
         status=200,
     )
 
+# Renders the conversation page if the user is part of the conversation, otherwise redirects.
 
-# TODO: make username check a decorator
 @require_GET
 def view_conversation(request: HttpRequest, id: str) -> HttpResponse:
     username = request.session.get("username")

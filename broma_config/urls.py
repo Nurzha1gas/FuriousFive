@@ -7,3 +7,6 @@ urlpatterns = [
     path("", include("accounts.urls")),
     path("", include("core.urls")),
 ]
+"""
+Defines URL patterns for the project, routing to admin, conversations, accounts, and core apps.
+"""

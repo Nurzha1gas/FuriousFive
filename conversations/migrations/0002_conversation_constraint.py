@@ -21,3 +21,8 @@ class Migration(migrations.Migration):
             ),
         ),
     ]
+"""
+Adds a database constraint to the Conversation model ensuring the creator and invitee are not the same.
+
+This migration relies on the initial conversation and message models setup.
+"""
