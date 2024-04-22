@@ -5,6 +5,10 @@ from django.views.decorators.http import require_POST
 
 from .models import User
 
+"""
+Handles POST requests to assign a unique username to new users. 
+Returns JSON response indicating success or failure (username already taken).
+"""
 
 @require_POST
 def pick_username(request: HttpRequest) -> JsonResponse:
