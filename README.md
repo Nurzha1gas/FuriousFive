@@ -1,1 +1,3 @@
-ddd
+Qossyl-dating application with elements of game.Our project written in Python(Django) and as database system uses SqlLite.There are some unique features our app:in one app we combine video chat and games.Our final project should contain several games to play 2 person. There are Video connection with WebRTC technology which connects video and audio with our app.We use WebSOCKET to give and take requests quikly in our backend part.There are also machinne learning algorithms for matching 2 user.We include there hobbies,gender,age,interests,time spent on which type of people to compute the most optimal companion to user.We also have edit profile,chat history,notification pages as well.
+
+Hope you will enjoy our project!!!
