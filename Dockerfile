@@ -1,8 +1,10 @@
 ###############################################
 # Base Image
 ###############################################
+# Use an official Python runtime as a parent image
 FROM python:3.9.5-slim as python-base
 
+# Set environment variables to prevent Python from writing pyc files to disc
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=off \
@@ -14,15 +16,16 @@ ENV PYTHONUNBUFFERED=1 \
     PYSETUP_PATH="/opt/pysetup" \
     VENV_PATH="/opt/pysetup/.venv"
 
-
+# Configure system path
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 ENV WAIT_VERSION=2.7.2
 
+# Add a utility for waiting on other services
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/$WAIT_VERSION/wait /wait
 RUN chmod +x /wait
 
 ###############################################
-# Builder Image
+# Builder Base
 ###############################################
 FROM python-base as builder-base
 RUN apt-get update \
@@ -30,22 +33,21 @@ RUN apt-get update \
     curl \
     build-essential
 
-# copy project requirement files here to ensure they will be cached.
+# Setup work directory and install Python dependencies
 WORKDIR $PYSETUP_PATH
 COPY poetry.lock pyproject.toml ./
-
 RUN pip install poetry
-
-# Install dependencies using Poetry
 RUN poetry config virtualenvs.create false && poetry install --no-root
 
-COPY .  /app
+# Copy the project files to the container
+COPY . /app
 WORKDIR /app
 
-# Run migrations
-RUN python manage.py migrate
+# Note: Avoid running migrations during build process
+# RUN python manage.py migrate
 
-EXPOSE 8000
+# Specify the command to run your app (do not expose ports in Dockerfile for Heroku)
+CMD ["daphne", "broma_config.asgi:application", "-b", "0.0.0.0", "-p", "$PORT"]
 
 # This Dockerfile sets up a Python-based environment using poetry for dependency management.
 # Base Image: Uses python:3.9.5-slim. Configures environment variables for Python and poetry,
