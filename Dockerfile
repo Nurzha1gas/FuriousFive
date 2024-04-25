@@ -2,39 +2,25 @@
 # Base Image
 ###############################################
 # Use an official Python runtime as a parent image
-FROM python:3.9.5-slim as python-base
+# Use an official Python runtime as a parent image
+FROM python:3.9-slim
 
+# Set environment variables
 ENV PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1 \
-    PIP_NO_CACHE_DIR=off \
-    PIP_DISABLE_PIP_VERSION_CHECK=on \
-    PIP_DEFAULT_TIMEOUT=100 \
-    POETRY_HOME="/opt/poetry" \
-    POETRY_VIRTUALENVS_IN_PROJECT=true \
-    POETRY_NO_INTERACTION=1 \
-    PYSETUP_PATH="/opt/pysetup" \
-    VENV_PATH="/opt/pysetup/.venv"
+    PYTHONDONTWRITEBYTECODE=1
 
-ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
-ENV WAIT_VERSION=2.7.2
-
-ADD https://github.com/ufoscout/docker-compose-wait/releases/download/$WAIT_VERSION/wait /wait
-RUN chmod +x /wait
-
-FROM python-base as builder-base
-RUN apt-get update \
-    && apt-get install --no-install-recommends -y curl build-essential
-
-WORKDIR $PYSETUP_PATH
-COPY poetry.lock pyproject.toml ./
-RUN pip install poetry
-RUN poetry config virtualenvs.create false && poetry install --no-root
-COPY entrypoint.sh /entrypoint.sh
-CMD ["/entrypoint.sh"]
-COPY . /app
+# Set work directory
 WORKDIR /app
 
-CMD daphne broma_config.asgi:application -b 0.0.0.0 -p $PORT
+# Install dependencies
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy project
+COPY . /app/
+
+# Run the application
+CMD ["daphne", "broma_config.asgi:application", "-b", "0.0.0.0", "-p", "$PORT"]
 
 
 
