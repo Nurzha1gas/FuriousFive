@@ -1,8 +1,8 @@
 build:
   docker:
     web: Dockerfile
+run:
+  web: daphne qossyl_diploma.asgi:application -b 0.0.0.0 -p $PORT
 release:
   command:
     - python manage.py migrate
-run:
-  web: daphne broma_config.asgi:application -b 0.0.0.0 -p $PORT
