@@ -1,0 +1,5 @@
+build:
+  docker:
+    web: Dockerfile
+run:
+  web: daphne Qossyl_diploma.asgi:application -b 0.0.0.0 -p $PORT
