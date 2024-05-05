@@ -1,10 +1,4 @@
 import os
-"""
-Sets up the ASGI application to handle HTTP and WebSocket connections.
-
-- Configures the Django environment and ASGI application.
-- Routes WebSocket connections through a middleware stack defined in `conversations`.
-"""
 
 from django.core.asgi import get_asgi_application
 

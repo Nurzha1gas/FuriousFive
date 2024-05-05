@@ -1,6 +1,7 @@
 import uuid
 
-from accounts.models import User
+#from accounts.models import User
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.constraints import CheckConstraint
 from django.db.models.expressions import F

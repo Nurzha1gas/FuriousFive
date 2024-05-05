@@ -2,9 +2,12 @@
 {% load humanize %}
 {% block head %}
 <style>
-    table {
-    border-collapse: separate;
-    border-spacing: 0.2em;
+    table td:hover {
+        background-color: rgba(0,0,0,.075);
+    }
+    table td {
+        height: 12vh;
+        width: 12vh;
     }
     .myVideoContainer{
     max-width: 10rem;
@@ -88,51 +91,53 @@
             <button class="btn btn-danger col mx-2" type="button" data-bs-toggle="modal" data-bs-target="#endCurrentGame" id="end-current-game-modal">End current game</button>
         </div>
         <!-- Tic Tac Toe Container -->
-        <div class="card mt-5">
-            <div class="card-header d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center justify-content-around">
-                    <!-- Character: X or O -->
-                    <div style="margin-right: 1em">
-                        <button type="button" class="btn btn-sm btn-dark position-relative" disabled>My Character: </button>
-                        <button type="button" id="my-character" class="btn btn-sm btn-dark position-relative" disabled>
-                        X
-                        </button>
+        <div class="row justify-content-center">
+            <div class="card mt-5 col-lg-6 mb-5" style="border: none !important;">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center justify-content-around">
+                        <!-- Character: X or O -->
+                        <div style="margin-right: 1em">
+                            <button type="button" class="btn btn-sm btn-dark position-relative" disabled>My Character: </button>
+                            <button type="button" id="my-character" class="btn btn-sm btn-dark position-relative" disabled>
+                            X
+                            </button>
+                        </div>
+                        <!-- Moves Count -->
+                        <div>
+                            <button type="button" class="btn btn-sm btn-dark position-relative" disabled>Moves: </button>
+                            <button type="button" id="moves-count" class="btn btn-sm btn-dark position-relative" disabled>
+                            0
+                            </button>
+                        </div>
                     </div>
-                    <!-- Moves Count -->
+                    <!-- My turn or not -->
                     <div>
-                        <button type="button" class="btn btn-sm btn-dark position-relative" disabled>Moves: </button>
-                        <button type="button" id="moves-count" class="btn btn-sm btn-dark position-relative" disabled>
-                        0
+                        <button type="button" class="btn btn-sm btn-dark position-relative" disabled>My turn: </button>
+                        <button type="button" id="my-turn" class="btn btn-sm btn-success position-relative" disabled>
+                        Yes
                         </button>
                     </div>
                 </div>
-                <!-- My turn or not -->
-                <div>
-                    <button type="button" class="btn btn-sm btn-dark position-relative" disabled>My turn: </button>
-                    <button type="button" id="my-turn" class="btn btn-sm btn-success position-relative" disabled>
-                    Yes
-                    </button>
+                <div class="card-body table-responsive-sm pb-0">
+                    <!-- Tic Tac Toe Board -->
+                    <table class="table table-bordered">
+                        <tr>
+                            <td class="col-4 fw-bold display-1 text-center rounded-3 square" data-index='0'></td>
+                            <td class="col-4 fw-bold display-1 text-center rounded-3 square" data-index='1'></td>
+                            <td class="col-4 fw-bold display-1 text-center rounded-3 square" data-index='2'></td>
+                        </tr>
+                        <tr>
+                            <td class="col-4 fw-bold display-1 text-center rounded-3 square" data-index='3'></td>
+                            <td class="col-4 fw-bold display-1 text-center rounded-3 square" data-index='4'></td>
+                            <td class="col-4 fw-bold display-1 text-center rounded-3 square" data-index='5'></td>
+                        </tr>
+                        <tr>
+                            <td class="col-4 fw-bold display-1 text-center rounded-3 square" data-index='6'></td>
+                            <td class="col-4 fw-bold display-1 text-center rounded-3 square" data-index='7'></td>
+                            <td class="col-4 fw-bold display-1 text-center rounded-3 square" data-index='8'></td>
+                        </tr>
+                    </table>
                 </div>
-            </div>
-            <div class="card-body table-responsive-sm pb-0">
-                <!-- Tic Tac Toe Board -->
-                <table class="table">
-                    <tr>
-                        <td class="col-4 bg-secondary text-white fw-bold display-4 p-5 text-center rounded-3 square" data-index='0'></td>
-                        <td class="col-4 bg-secondary text-white fw-bold display-4 p-5 text-center rounded-3 square" data-index='1'></td>
-                        <td class="col-4 bg-secondary text-white fw-bold display-4 p-5 text-center rounded-3 square" data-index='2'></td>
-                    </tr>
-                    <tr>
-                        <td class="col-4 bg-secondary text-white fw-bold display-4 p-5 text-center rounded-3 square" data-index='3'></td>
-                        <td class="col-4 bg-secondary text-white fw-bold display-4 p-5 text-center rounded-3 square" data-index='4'></td>
-                        <td class="col-4 bg-secondary text-white fw-bold display-4 p-5 text-center rounded-3 square" data-index='5'></td>
-                    </tr>
-                    <tr>
-                        <td class="col-4 bg-secondary text-white fw-bold display-4 p-5 text-center rounded-3 square" data-index='6'></td>
-                        <td class="col-4 bg-secondary text-white fw-bold display-4 p-5 text-center rounded-3 square" data-index='7'></td>
-                        <td class="col-4 bg-secondary text-white fw-bold display-4 p-5 text-center rounded-3 square" data-index='8'></td>
-                    </tr>
-                </table>
             </div>
         </div>
     </div>
@@ -157,7 +162,7 @@
 </div>
 <!-- Video call div  -->
 <div class="row justify-content-center">
-    <div class="col-lg-10 my-1">
+    <div class="col-lg-7 my-1">
         <div class="card">
             <div class="card-header fw-bold text-center">
                 Video Call
@@ -182,11 +187,10 @@
             </div>
         </div>
     </div>
-</div>
-<!-- Chat div  -->
-<div class="row justify-content-center">
-    <div class="col-lg-10 my-1">
-        <div class="card mh-100">
+
+    <!-- Chat div  -->
+    <div class="col-lg-3 my-1">
+        <div class="card mh-100" style="height: 100%;">
             <div class="card-header fw-bold text-center">
                 Chat
             </div>
@@ -234,13 +238,14 @@
                     {% endif %}
                     {% endfor %}
                 </div>
-                <div class="input-group">
-                    <textarea class="form-control" aria-label="Send message" id="message-input"></textarea>
-                    <button class="btn btn-secondary" type="button" id="send-message">Send</button>
-                </div>
+            </div>
+            <div class="input-group card-footer">
+                <textarea class="form-control" aria-label="Send message" id="message-input" rows="1"></textarea>
+                <button class="btn btn-secondary" type="button" id="send-message">Send</button>
             </div>
         </div>
     </div>
+
 </div>
 <!-- Calling Modal -->
 <div id="callingModal" class="modal fade" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="endCurrentGame" aria-hidden="true">

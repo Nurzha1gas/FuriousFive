@@ -1,8 +1,4 @@
 version: '3'
-# This Docker Compose file defines three services: Django application, Redis server, and Redis Web Client.
-# Django is set to run the development server on port 8000 and connects to Redis for caching/session data.
-# Redis is exposed on the default port 6379.
-# Redis Web Client (Redis Commander) provides a web interface to manage Redis, accessible on port 8081.
 
 services:
   django:

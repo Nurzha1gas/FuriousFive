@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import include, path
+from django.contrib.auth.views import LoginView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -7,6 +8,3 @@ urlpatterns = [
     path("", include("accounts.urls")),
     path("", include("core.urls")),
 ]
-"""
-Defines URL patterns for the project, routing to admin, conversations, accounts, and core apps.
-"""

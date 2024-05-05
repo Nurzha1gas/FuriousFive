@@ -8,19 +8,20 @@ from django.views.decorators.http import require_GET, require_POST
 
 from .models import Conversation, User
 
-# Handles the creation of a new conversation by a logged-in user.
+
 @require_POST
 def create_conversation(request: HttpRequest) -> JsonResponse:
-    session_username = request.session.get("username")
-    if not session_username:
-        return JsonResponse(
-            {"status": False, "message": "No username found in session!"}, status=422
-        )
+    user = request.user
+    # session_username = request.session.get("username")
+    # if not session_username:
+    #     return JsonResponse(
+    #         {"status": False, "message": "No username found in session!"}, status=422
+    #     )
 
-    try:
-        user: User = User.objects.get(username=session_username)
-    except User.DoesNotExist:
-        return JsonResponse({"status": False, "message": "User does not exist!"}, status=400)
+    # try:
+    #     user: User = User.objects.get(username=session_username)
+    # except User.DoesNotExist:
+    #     return JsonResponse({"status": False, "message": "User does not exist!"}, status=400)
 
     new_conversation: Conversation = Conversation.objects.create(creator=user)
 
@@ -33,20 +34,21 @@ def create_conversation(request: HttpRequest) -> JsonResponse:
         status=201,
     )
 
-# Handles the joining of a conversation by a logged-in user, ensuring it's not full.
+
 @require_POST
 def join_conversation(request: HttpRequest) -> JsonResponse:
-    session_username = request.session.get("username")
+    user = request.user
+    # session_username = request.session.get("username")
 
-    if not session_username:
-        return JsonResponse(
-            {"status": False, "message": "No username found in session!"}, status=422
-        )
+    # if not session_username:
+    #     return JsonResponse(
+    #         {"status": False, "message": "No username found in session!"}, status=422
+    #     )
 
-    try:
-        user: User = User.objects.get(username=session_username)
-    except User.DoesNotExist:
-        return JsonResponse({"status": False, "message": "User does not exist!"}, status=400)
+    # try:
+    #     user: User = User.objects.get(username=session_username)
+    # except User.DoesNotExist:
+    #     return JsonResponse({"status": False, "message": "User does not exist!"}, status=400)
 
     request_data = json.loads(request.body)
     conversation_id = request_data.get("conversation_id")
@@ -96,20 +98,21 @@ def join_conversation(request: HttpRequest) -> JsonResponse:
         status=200,
     )
 
-# Renders the conversation page if the user is part of the conversation, otherwise redirects.
 
+# TODO: make username check a decorator
 @require_GET
 def view_conversation(request: HttpRequest, id: str) -> HttpResponse:
-    username = request.session.get("username")
-    if not username:
-        messages.error(request, "You need to pick username to join a conversation!")
-        return redirect(reverse("core:index"))
+    user = request.user
+    # username = request.session.get("username")
+    # if not username:
+    #     messages.error(request, "You need to pick username to join a conversation!")
+    #     return redirect(reverse("core:index"))
 
-    try:
-        user = User.objects.get(username=username)
-    except User.DoesNotExist:
-        messages.error(request, "Conversation does not exist!")
-        return redirect(reverse("core:index"))
+    # try:
+    #     user = User.objects.get(username=username)
+    # except User.DoesNotExist:
+    #     messages.error(request, "Conversation does not exist!")
+    #     return redirect(reverse("core:index"))
 
     try:
         conversation = Conversation.objects.get(id=id)
@@ -123,13 +126,53 @@ def view_conversation(request: HttpRequest, id: str) -> HttpResponse:
             request,
             "conversations/view_conversation.html",
             {
-                "title": f"Conversation {conversation.id} | Broma",
+                "title": f"Conversation {conversation.id}",
                 "conversation": conversation,
                 "convo_messages": conversation.messages.all(),
-                "username": username,
+                "username": user.username,
             },
         )
 
     # if the user is neither
     messages.error(request, "Sorry, you cannot join this conversation!")
     return redirect(reverse("core:index"))
+
+
+@require_GET
+def get_conversation_history(request):
+    current_user = request.user
+    conversations = Conversation.objects.filter(creator=current_user) | Conversation.objects.filter(invitee=current_user)
+    return render(request, 'calls_history.html', {'conversations': conversations})
+
+
+@require_POST
+def find_conversation(request):
+    # Get the current user
+    current_user = request.user
+
+    # Query to find an existing conversation with an empty invitee field
+    existing_conversation = Conversation.objects.filter(invitee__isnull=True).order_by('-created_at').first()
+
+    # If an existing conversation with empty invitee exists, update it and redirect
+    if existing_conversation:
+        existing_conversation.invitee = current_user
+        existing_conversation.save()
+        return JsonResponse(
+        {
+            "status": True,
+            "message": "Conversation joined successfully!",
+            "data": {"conversation_id": existing_conversation.id},
+        },
+        status=200,
+    )
+
+    # If no empty conversation exists, create a new one and redirect
+    new_conversation = Conversation.objects.create(creator=current_user)
+    return JsonResponse(
+        {
+            "status": True,
+            "message": "Conversation joined successfully!",
+            "data": {"conversation_id": new_conversation.id},
+        },
+        status=200,
+    )

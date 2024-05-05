@@ -78,10 +78,3 @@ class Migration(migrations.Migration):
             ],
         ),
     ]
-"""
-Initial migration for Conversation and Message models within the conversations app.
-
-- Conversation: Tracks conversations with fields for IDs, creation time, creator, and invitee.
-- Message: Defines messages within a conversation, including sender, content, and timestamp.
-Each model links back to the User model in the 'accounts' app through foreign keys.
-"""
